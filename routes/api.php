@@ -23,7 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function(){
+Route::post('auth', 'Auth\AuthApiController@authenticate');
+
+Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function(){    
     Route::get('categories/{id}/products', 'CategoryController@products');
     Route::apiResource('categories', 'CategoryController');
     Route::apiResource('products', 'ProductController');
