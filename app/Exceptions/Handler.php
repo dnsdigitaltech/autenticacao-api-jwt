@@ -60,7 +60,13 @@ class Handler extends ExceptionHandler
             if($request->expectsJson()) //se a requisição for do tipo AJAX
                 return response()->json(['error' => 'Method_Not_Allowed'], $exception->getStatusCode());
         }
-            
+
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException)
+            return response()->json(['token_expired'], $exception->getStatusCode());
+
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException)
+            return response()->json(['token_invalid'], $exception->getStatusCode());
+                    
         return parent::render($request, $exception);
     }
 }
