@@ -11,6 +11,12 @@ use Tymon\JWTAuth\JWTAuth as JWTAuthJWTAuth;
 
 class AuthApiController extends Controller
 {
+    public function __construct()
+    {
+        //passar um middleware em todos os metodos auth API, exceto o authenticate
+        $this->middleware('auth:api', ['except' => ['authenticate']]);
+    }
+
     public function authenticate(Request $request)
     {
         // grab credentials from the request

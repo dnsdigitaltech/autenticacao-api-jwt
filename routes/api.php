@@ -27,7 +27,11 @@ Route::post('auth', 'Auth\AuthApiController@authenticate');
 Route::post('auth-refresh', 'Auth\AuthApiController@refreshToken');
 Route::get('me', 'Auth\AuthApiController@getAuthenticatedUser');
 
-Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function(){    
+Route::group([
+    'prefix' => 'v1', 
+    'namespace' => 'Api\v1', 
+    'middleware' => 'auth:api'],
+    function(){    
     Route::get('categories/{id}/products', 'CategoryController@products');
     Route::apiResource('categories', 'CategoryController');
     Route::apiResource('products', 'ProductController');
